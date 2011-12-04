@@ -3,18 +3,13 @@
 
 #include <GL/glut.h>
 
-
-// angle of rotation for the camera direction
 float angle = 0.0f;
 
-// actual vector representing the camera's direction
+
 float lx=0.0f,lz=-1.0f;
 
-// XZ position of the camera
-float x=0.0f, z=5.0f;
 
-// the key states. These variables will be zero
-//when no key is being presses
+float x=0.0f, z=5.0f;
 float deltaAngle = 0.0f;
 float deltaMove = 0;
 int xOrigin = -1;
@@ -150,10 +145,9 @@ void mouseMove(int x, int y)
     if (xOrigin >= 0)
     {
 
-        // update deltaAngle
+
         deltaAngle = (x - xOrigin) * 0.01f;
 
-        // update camera's direction
         lx = sin(angle + deltaAngle);
         lz = -cos(angle + deltaAngle);
     }
@@ -181,7 +175,6 @@ void mouseButton(int button, int state, int x, int y)
 int main(int argc, char **argv)
 {
 
-    // init GLUT and create window
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(100,100);
@@ -200,10 +193,9 @@ int main(int argc, char **argv)
     glutMouseFunc(mouseButton);
     glutMotionFunc(mouseMove);
 
-    // OpenGL init
+
     glEnable(GL_DEPTH_TEST);
 
-    // enter GLUT event processing cycle
     glutMainLoop();
 
     return 1;
