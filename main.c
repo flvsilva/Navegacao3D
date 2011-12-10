@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <math.h>
 
@@ -68,27 +69,53 @@ void renderScene(void)
     // Reinicia as transformações
     glLoadIdentity();
     // põe a câmera
-    gluLookAt(	x, 1.0f, z,
-                x+lx, 1.0f,  z+lz,
-                0.0f, 1.0f,  0.0f);
+    gluLookAt( x, 1.0f, z,
+                x+lx, 1.0f, z+lz,
+                0.0f, 1.0f, 0.0f);
 
 // Desenha o chão
-    glColor3f(0.2f, 0.7f, 0.3f);
-    glBegin(GL_QUADS);
-    glVertex3f(-10.0f, 0.0f, -10.0f);
-    glVertex3f(-10.0f, 0.0f,  10.0f);
-    glVertex3f( 10.0f, 0.0f,  10.0f);
-    glVertex3f( 10.0f, 0.0f, -10.0f);
-    glEnd();
+glColor3f(0.2f, 0.7f, 0.3f);
+glBegin(GL_QUADS);
+/* Floor */
 
-// Desenha as paredes
-    /*glColor3f(0.8f, 0.7f, 0.3f);
-    glBegin(GL_QUADS);
-    glVertex3f(-10.0f, 10.0f, 0.0f);
-    glVertex3f(-10.0f, 10.0f,  0.0f);
-    glVertex3f( 0.0f, 0.0f,  10.0f);
-    glVertex3f( 0.0f, 0.0f, -10.0f);
-    glEnd();*/
+
+glVertex3f(-15,0,-15);
+glVertex3f(-15,0,15);
+glVertex3f(15,0,15);
+glVertex3f(15,0,-15);
+
+glColor3f(0.7f, 0.7f, 0.3f);
+/* Ceiling */
+glVertex3f(-15,10,-15);
+glVertex3f(15,10,-15);
+glVertex3f(15,10,15);
+glVertex3f(-15,10,15);
+/* Walls */
+glColor3f(0.3f, 0.3f, 0.3f);
+
+//entada...
+ /*
+glVertex3f(-1,-1,1);
+glVertex3f(1,-1,1);
+glVertex3f(1,1,1);
+glVertex3f(-1,1,1); */
+//glColor3f(0.3f, 0.3f, 1.0f);
+glVertex3f(-15,-15,-15);
+glVertex3f(15,-15,-15);
+glVertex3f(15,15,-15);
+glVertex3f(-15,15,-15);
+
+glVertex3f(15,15,15);
+glVertex3f(15,-15,15);
+glVertex3f(15,-15,-15);
+glVertex3f(15,15,-15);
+
+glVertex3f(-15,15,15);
+glVertex3f(-15,-15,15);
+glVertex3f(-15,-15,-15);
+glVertex3f(-15,15,-15);
+
+glEnd();
 
 // Desenha as caixas
     int i = 0;
@@ -122,6 +149,7 @@ void pressKey(int key, int xx, int yy)
     case GLUT_KEY_DOWN :
         deltaMove = -0.5f;
         break;
+
     }
 }
 
@@ -140,8 +168,6 @@ void releaseKey(int key, int x, int y)
 void mouseMove(int x, int y)
 {
 
-
-    //xOrigin = 2;
     if (xOrigin >= 0)
     {
 
