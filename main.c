@@ -1,3 +1,20 @@
+/* Para navegação, use as setas e o mouse:
+
+Seta pra cima - Anda para frente
+Seta pra baixo - Anda para trás
+Seta para esquerda - Strafe pra esquerda
+Seta pra direita - Strafe pra direita
+
+Para mecher a câmera com o mouse, clique com o botão esquerdo e, mantendo o clique, mova o mouse para os lados.
+
+
+-> TODO:
+
+* Segundo viewport com a visualização ortogonal do ambiente
+
+*/
+
+
 #include <stdlib.h>
 #include <math.h>
 #include <GL/glut.h>
@@ -31,7 +48,7 @@ void desenhaCaixa()
 {
    glColor3f(1.0f, 1.0f, 0); //seta a cor
    glTranslatef(0.0f ,0.75f, 0.0f); // faz a translação
-   glutSolidCube(0.3); //plota o cubo
+   glutSolidCube(0.5); //plota o cubo
     //glutSolidTeapot(0.7); bule :D
 }
 
