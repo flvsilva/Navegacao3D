@@ -50,8 +50,22 @@ void desenhaCaixa()
 // movimentos
 void computePos(float deltaMove)
 {
-    x += deltaMove * lx * 0.1f;
-    z += deltaMove * lz * 0.1f;
+
+    if (deltaMove == 0.4f) {
+        float yrotrad;
+        //yrotrad = (( 0 ) / 180 * 3.14f);
+        x -= (cos(0)) * 0.1;
+        z -= (sin(0)) * 0.1;
+    } else if (deltaMove == -0.4f) {
+        float yrotrad;
+        yrotrad = (( 0 ) / 180 * 3.14f);
+        x += (cos(yrotrad)) * 0.1;
+        z += (sin(yrotrad)) * 0.1;
+    } else {
+        x += deltaMove * lx * 0.1f;
+        z += deltaMove * lz * 0.1f;
+    }
+
 }
 
 //renderizando
@@ -70,64 +84,60 @@ void renderScene(void)
     glLoadIdentity();
     // põe a câmera
     gluLookAt( x, 1.0f, z,
-                x+lx, 1.0f, z+lz,
-                0.0f, 1.0f, 0.0f);
+               x+lx, 1.0f, z+lz,
+               0.0f, 1.0f, 0.0f);
 
-// Desenha o chão
-glColor3f(0.2f, 0.7f, 0.3f);
-glBegin(GL_QUADS);
-/* Floor */
+    // Desenha o chão
+    glColor3f(0.2f, 0.7f, 0.3f);
+    glBegin(GL_QUADS);
+    /* Floor */
 
 
-glVertex3f(-15,0,-15);
-glVertex3f(-15,0,15);
-glVertex3f(15,0,15);
-glVertex3f(15,0,-15);
+    glVertex3f(-15,0,-15);
+    glVertex3f(-15,0,15);
+    glVertex3f(15,0,15);
+    glVertex3f(15,0,-15);
 
-glColor3f(0.7f, 0.7f, 0.3f);
-/* Ceiling */
-glVertex3f(-15,10,-15);
-glVertex3f(15,10,-15);
-glVertex3f(15,10,15);
-glVertex3f(-15,10,15);
-/* Walls */
-glColor3f(0.3f, 0.3f, 0.3f);
+    glColor3f(0.7f, 0.7f, 0.3f);
+    /* Ceiling */
+    glVertex3f(-15,10,-15);
+    glVertex3f(15,10,-15);
+    glVertex3f(15,10,15);
+    glVertex3f(-15,10,15);
+    /* Walls */
+    glColor3f(0.3f, 0.3f, 0.3f);
 
-//entada...
- /*
-glVertex3f(-1,-1,1);
-glVertex3f(1,-1,1);
-glVertex3f(1,1,1);
-glVertex3f(-1,1,1); */
-//glColor3f(0.3f, 0.3f, 1.0f);
-glVertex3f(-15,-15,-15);
-glVertex3f(15,-15,-15);
-glVertex3f(15,15,-15);
-glVertex3f(-15,15,-15);
+    //entada...
+     /*
+    glVertex3f(-1,-1,1);
+    glVertex3f(1,-1,1);
+    glVertex3f(1,1,1);
+    glVertex3f(-1,1,1); */
+    //glColor3f(0.3f, 0.3f, 1.0f);
+    glVertex3f(-15,-15,-15);
+    glVertex3f(15,-15,-15);
+    glVertex3f(15,15,-15);
+    glVertex3f(-15,15,-15);
 
-glVertex3f(15,15,15);
-glVertex3f(15,-15,15);
-glVertex3f(15,-15,-15);
-glVertex3f(15,15,-15);
+    glVertex3f(15,15,15);
+    glVertex3f(15,-15,15);
+    glVertex3f(15,-15,-15);
+    glVertex3f(15,15,-15);
 
-glVertex3f(-15,15,15);
-glVertex3f(-15,-15,15);
-glVertex3f(-15,-15,-15);
-glVertex3f(-15,15,-15);
+    glVertex3f(-15,15,15);
+    glVertex3f(-15,-15,15);
+    glVertex3f(-15,-15,-15);
+    glVertex3f(-15,15,-15);
 
-glEnd();
+    glEnd();
 
 // Desenha as caixas
     int i = 0;
     int j = 0;
-    for(i = 0; i < 3; i++)
-        for(j= 0; j < 3; j++)
-        {
-            glPushMatrix();
-            glTranslatef(i*10.0,0,j * 10.0);
-            desenhaCaixa();
-            glPopMatrix();
-        }
+    glPushMatrix();
+    glTranslatef(i*10.0,0,j * 10.0);
+    desenhaCaixa();
+    glPopMatrix();
     glutSwapBuffers();
 }
 
@@ -139,18 +149,54 @@ void processNormalKeys(unsigned char key, int xx, int yy)
 
 void pressKey(int key, int xx, int yy)
 {
+    if (key == 'w' || key == GLUT_KEY_UP)
+    {
+        deltaMove = 0.5f;
+
+    }
+    else if (key == 's' || key == GLUT_KEY_DOWN)
+    {
+        deltaMove = -0.5f;
+
+    }
+    else if (key == 'a' || key == GLUT_KEY_LEFT)
+    {
+        deltaMove = 0.4f;
+
+    }
+    else if (key == 'd' || key == GLUT_KEY_RIGHT)
+    {
+        deltaMove = -0.4f;
+
+    }
+/*
     switch (key)
     {
         // anda para frente
     case GLUT_KEY_UP :
         deltaMove = 0.5f;
         break;
+    case (key == 'w') :
+        deltaMove = 0.5f;
+        break;
         // anda para trás
     case GLUT_KEY_DOWN :
         deltaMove = -0.5f;
         break;
+    case (key == 's') :
+        deltaMove = -0.5f;
+        break;
+    case GLUT_KEY_LEFT :
+        deltaMove = 1.11f;
+        break;
+
+    case GLUT_KEY_RIGHT :
+        deltaMove = -1.11f;
+        break;
 
     }
+
+    */
 }
 
 void releaseKey(int key, int x, int y)
@@ -160,6 +206,8 @@ void releaseKey(int key, int x, int y)
     {
     case GLUT_KEY_UP :
     case GLUT_KEY_DOWN :
+    case GLUT_KEY_LEFT :
+    case GLUT_KEY_RIGHT :
         deltaMove = 0;
         break;
     }
